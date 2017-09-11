@@ -72,7 +72,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $abc = 'ttt';
+        return $this->render('index', compact("abc"));
     }
 
     /**
@@ -209,5 +210,18 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    public function actionTest()
+    {
+        $test = "这是一个editor";
+        return $this->render('test', compact('test'));
+    }
+
+    public function actionMd()
+    {
+//        $this->layout = 'layout_md';
+        return $this->renderPartial('md');
+
     }
 }

@@ -17,7 +17,21 @@
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.6",
         "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0"
+        "yiisoft/yii2-swiftmailer": "~2.0.0",
+        "yiisoft/yii2-smarty": "~2.0.0",
+        "yiisoft/yii2-twig": "~2.0.0",
+        "yiisoft/yii2-queue": "~2.0.0",
+        "yiisoft/yii2-shell": "~2.0.0",
+        "yiisoft/yii2-httpclient": "~2.0.0",
+        "yiisoft/yii2-apidoc": "~2.1.0",
+        "yiisoft/yii2-redis": "~2.0.0",
+        "yiisoft/yii2-authclient": "~2.1.0",
+        "yiisoft/yii2-elasticsearch": "~2.0.0",
+        "yiisoft/yii2-mongodb": "~2.1.0",
+        "yiisoft/yii2-sphinx": "~2.0.0",
+        "yiisoft/yii2-imagine": "~2.1.0",
+        "yiisoft/yii2-jui": "~2.0.0",
+        "qiniu/php-sdk": "^7.2"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
