@@ -9,26 +9,29 @@
 
 ?>
 
+
+
+
 <div id="test-editormd"></div>
 
 
 <script>
-
     var testEditor;
     $(function () {
         testEditor = editormd("test-editormd", {
             width: "90%",
             height: 740,
             path: '/public/components/editor.md/lib/',
-            theme: "dark",
-            previewTheme: "dark",
-            editorTheme: "pastel-on-dark",
+            theme: "white",
+            previewTheme: "white",
+            editorTheme: "xq-light",
             markdown: '',
+            toolbarAutoFixed:false,
             codeFold: false,
-            //syncScrolling : false,
+            syncScrolling : false,
             saveHTMLToTextarea: false,    // 保存 HTML 到 Textarea
             searchReplace: true,
-            watch : false,                // 关闭实时预览
+            watch : true,                // 关闭实时预览
             htmlDecode: "style,script,iframe|off*",            // 开启 HTML 标签解析，为了安全性，默认不开启
             //toolbar  : false,             //关闭工具栏
             //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
@@ -59,6 +62,5 @@
             }
         });
     });
-
 </script>
 

@@ -224,4 +224,9 @@ class SiteController extends Controller
         return $this->renderPartial('md');
 
     }
+
+    public function actionGitbook()
+    {
+        return $this->renderPartial("gitbook");
+    }
 }
