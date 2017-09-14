@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
@@ -47,9 +48,9 @@ class SiteController extends Controller
     public function actions()
     {
         return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
+//            'error' => [
+//                'class' => 'yii\web\ErrorAction',
+//            ],
         ];
     }
 
@@ -95,4 +96,23 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
+    public function actionError()
+    {
+        $exception = Yii::$app->errorHandler->exception;
+        if ($exception !== null) {
+
+            $message = $exception->getMessage();
+            $statusCode = $exception->statusCode;
+
+            $data = [
+                'message' => $message,
+                'statusCode' => $statusCode,
+                'exception' => $exception
+            ];
+
+            return $this->render('error', $data);
+        }
+    }
+
 }

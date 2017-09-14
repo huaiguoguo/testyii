@@ -30,9 +30,29 @@ class AppAsset extends AssetBundle
 
     public $js = [
         "inspinia/js/jquery-3.1.1.min.js",
+        "inspinia/js/bootstrap.min.js",
+        "inspinia/js/plugins/metisMenu/jquery.metisMenu.js",
+        "inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"
     ];
     public $depends = [
 //        'yii\web\YiiAsset',
 //        'yii\bootstrap\BootstrapAsset',
     ];
+
+    public static function getAppAssetArr()
+    {
+        return [AppAsset::className(), 'depends' => 'backend\assets\AppAsset'];
+    }
+
+    public static function addJsFile(View $view, $file)
+    {
+        $view->registerJsFile($file, self::getAppAssetArr());
+    }
+
+    public static function addCssFile(View $view, $file)
+    {
+        $view->registerCssFile($file, self::getAppAssetArr());
+    }
+
+
 }

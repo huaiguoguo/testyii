@@ -8,20 +8,22 @@
 use yii\helpers\Html;
 
 $this->title = $name;
+//$this->context->layout = false;
+
 ?>
-<div class="site-error">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
+<div class="middle-box text-center animated fadeInDown">
+    <h1><?= Html::encode($exception->statusCode) ?></h1>
+    <h3 class="font-bold"><?= nl2br(Html::encode($exception->getMessage())) ?></h3>
+
+    <div class="error-desc">
+        Sorry, but the page you are looking for has note been found. Try checking the URL for error, then hit the refresh button on your browser or try found something else in our app.
+        <form class="form-inline m-t" role="form">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search for page">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
     </div>
-
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
-
 </div>
