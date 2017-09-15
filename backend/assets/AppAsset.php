@@ -19,13 +19,13 @@ class AppAsset extends AssetBundle
 //        "inspinia/css/plugins/codemirror/codemirror.css",
 //        "inspinia/css/plugins/codemirror/ambiance.css",
         "inspinia/css/plugins/toastr/toastr.min.css",
-        "inspinia/js/plugins/gritter/jquery.gritter.css",
+//        "inspinia/js/plugins/gritter/jquery.gritter.css",
         "inspinia/css/animate.css",
         "inspinia/css/style.css",
     ];
 
     public $jsOptions = [
-        'position' => View::POS_HEAD,
+        'position' => View::POS_END,
     ];
 
     public $js = [
@@ -34,6 +34,7 @@ class AppAsset extends AssetBundle
         "inspinia/js/plugins/metisMenu/jquery.metisMenu.js",
         "inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"
     ];
+
     public $depends = [
 //        'yii\web\YiiAsset',
 //        'yii\bootstrap\BootstrapAsset',

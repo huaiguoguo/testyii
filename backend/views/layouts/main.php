@@ -10,6 +10,9 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
+use yii\web\View;
+
+use yii\widgets\Menu;
 
 AppAsset::register($this);
 ?>
@@ -33,6 +36,22 @@ AppAsset::register($this);
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
 
+            <?php
+
+            $menu = \common\component\Hcomm::getMenuCopy(true);
+
+            echo Menu::widget([
+                'encodeLabels'    => false,
+                'submenuTemplate' => "\n<ul class=\"nav nav-second-level collapse\">\n{items}\n</ul>\n",
+                'options'         => [
+                    'id'    => 'side-menu',
+                    'class' => 'nav metismenu',
+                ],
+                'items' => $menu,
+            ]);
+
+            ?>
+
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element"> <span>
@@ -55,21 +74,24 @@ AppAsset::register($this);
                         IN+
                     </div>
                 </li>
+
                 <li>
-                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span
-                                class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="index.html">Dashboard v.1 </a></li>
+                    <a href="index.html">
+                        <i class="fa fa-th-large"></i>
+                        <span class="nav-label">Dashboards</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="/site/index.html">Dashboard v.1 </a></li>
                         <li><a href="dashboard_2.html">Dashboard v.2</a></li>
                         <li><a href="dashboard_3.html">Dashboard v.3</a></li>
                         <li><a href="dashboard_4_1.html">Dashboard v.4</a></li>
                         <li><a href="dashboard_5.html">Dashboard v.5 </a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
+                <li class="active">
+                    <a href="/site/test.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
                 </li>
-
 
 
                 <li>
@@ -426,22 +448,66 @@ AppAsset::register($this);
 
             </nav>
         </div>
-        <?= $content; ?>
+        <?=$content; ?>
     </div>
 
 
 </div>
 
+
+<!-- Flot -->
+<?php //AppAsset::addJsFile($this, "@web/inspinia/js/plugins/flot/jquery.flot.js"); ?>
+<?php //AppAsset::addJsFile($this, "@web/inspinia/js/plugins/flot/jquery.flot.tooltip.min.js"); ?>
+<?php //AppAsset::addJsFile($this, "@web/inspinia/js/plugins/flot/jquery.flot.spline.js"); ?>
+<?php //AppAsset::addJsFile($this, "@web/inspinia/js/plugins/flot/jquery.flot.resize.js"); ?>
+<?php //AppAsset::addJsFile($this, "@web/inspinia/js/plugins/flot/jquery.flot.pie.js"); ?>
+
+<!-- Peity -->
+<?php //AppAsset::addJsFile($this, "@web/inspinia/js/plugins/peity/jquery.peity.min.js"); ?>
+<?php //AppAsset::addJsFile($this, "@web/inspinia/js/demo/peity-demo.js"); ?>
+
 <!-- Custom and plugin javascript -->
 <?php AppAsset::addJsFile($this, "@web/inspinia/js/inspinia.js"); ?>
 <?php AppAsset::addJsFile($this, "@web/inspinia/js/plugins/pace/pace.min.js"); ?>
 
-
 <!-- jQuery UI -->
 <?php AppAsset::addJsFile($this, "@web/inspinia/js/plugins/jquery-ui/jquery-ui.min.js"); ?>
 
+<!-- GITTER -->
+<?php AppAsset::addJsFile($this, "@web/inspinia/js/plugins/gritter/jquery.gritter.min.js"); ?>
+
+<!-- Sparkline -->
+<?php //AppAsset::addJsFile($this, "@web/inspinia/js/plugins/sparkline/jquery.sparkline.min.js"); ?>
+
+<!-- Sparkline demo data  -->
+<?php //AppAsset::addJsFile($this, "@web/inspinia/js/demo/sparkline-demo.js"); ?>
+
+<!-- ChartJS-->
+<?php //AppAsset::addJsFile($this, "@web/inspinia/js/plugins/chartJs/Chart.min.js"); ?>
+
 <!-- Toastr -->
 <?php AppAsset::addJsFile($this, "@web/inspinia/js/plugins/toastr/toastr.min.js"); ?>
+
+
+<script type="text/javascript">
+    <?php $this->beginBlock('init'); ?>
+    $(document).ready(function () {
+        setTimeout(function () {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                showMethod: 'slideDown',
+                timeOut: 4000
+            };
+            toastr.success('Responsive Admin Theme', 'Welcome to INSPINIA');
+
+        }, 1300);
+    });
+    <?php $this->endBlock(); ?>
+</script>
+<?php $this->registerJs($this->blocks['init'], View::POS_END) ?>
+
+
 
 <?php $this->endBody() ?>
 </body>

@@ -23,6 +23,29 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'RedisCache'=> [
+            'class' => 'yii\redis\Cache',
+            'redis'=>[
+                'hostname' => '',
+                'port' => '',
+                'database' => '',
+            ]
+        ],
+        'Mcache' => [
+            'class' => 'yii\caching\MemCache',
+            'servers' => [
+                [
+                    'host' => 'server1',
+                    'port' => 11211,
+                    'weight' => 60,
+                ],
+                [
+                    'host' => 'server2',
+                    'port' => 11211,
+                    'weight' => 40,
+                ],
+            ],
+        ],
         'view' => [
             'class' => 'yii\web\View',
             'defaultExtension' => 'tpl',
