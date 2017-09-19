@@ -29,14 +29,14 @@ class AppAsset extends AssetBundle
     ];
 
     public $js = [
-        "inspinia/js/jquery-3.1.1.min.js",
+//        "inspinia/js/jquery-3.1.1.min.js",
         "inspinia/js/bootstrap.min.js",
         "inspinia/js/plugins/metisMenu/jquery.metisMenu.js",
         "inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"
     ];
 
     public $depends = [
-//        'yii\web\YiiAsset',
+        'yii\web\YiiAsset',
 //        'yii\bootstrap\BootstrapAsset',
     ];
 

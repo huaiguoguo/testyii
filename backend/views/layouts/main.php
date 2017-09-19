@@ -40,7 +40,7 @@ AppAsset::register($this);
 
             $menu = \common\component\Hcomm::getMenuCopy(true);
 
-            echo Menu::widget([
+              Menu::widget([
                 'encodeLabels'    => false,
                 'submenuTemplate' => "\n<ul class=\"nav nav-second-level collapse\">\n{items}\n</ul>\n",
                 'options'         => [

@@ -11,10 +11,18 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'admin' => [
+            'class' => 'mdm\admin\Module',
+        ],
+    ],
+    'aliases' => [
+        '@mdm/admin' => '@vendor/mdmsoft/yii2-admin',
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'enableCsrfValidation' => false
         ],
         'user' => [
             'identityClass' => 'common\models\User',

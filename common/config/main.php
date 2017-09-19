@@ -11,6 +11,7 @@ return [
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['guest'],
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
