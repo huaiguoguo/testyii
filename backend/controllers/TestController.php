@@ -26,6 +26,7 @@ class TestController extends Controller
     public function actionIndex()
     {
         $data = [];
+
         return $this->render('index', $data);
     }
 
@@ -37,12 +38,12 @@ class TestController extends Controller
 
         dump($auth);
 
-        $permission = $auth->createPermission("/test/one");
+        $permission              = $auth->createPermission("/test/one");
         $permission->description = "这是测试one";
 //        $permission->ruleName = "ruleone";
-        if($auth->add($permission)){
+        if ($auth->add($permission)) {
             echo "权限项创建成功";
-        }else{
+        } else {
             echo "权限项创建不成功";
         }
 
@@ -56,7 +57,7 @@ class TestController extends Controller
 
         $parent = $auth->getPermission("/test/one");
 
-        $child = $auth->createPermission("/test/two");
+        $child              = $auth->createPermission("/test/two");
         $child->description = "这是one的子类";
 
         $child_is = $auth->addChild($parent, $child);
@@ -67,8 +68,6 @@ class TestController extends Controller
 
         return $this->renderContent("添加子项");
     }
-
-
 
 
     public function actionDelete()

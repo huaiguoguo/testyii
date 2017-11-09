@@ -17,8 +17,9 @@ use common\models\AuthItem;
 use yii\helpers\Url;
 
 
-class Hcomm extends Component
+class HoComm extends Component
 {
+
 
     /**
      * @author: 火柴<290559038@qq.com>
@@ -30,53 +31,88 @@ class Hcomm extends Component
     public static function getMenuCopy($isFind = false)
     {
         $route = "/" . Yii::$app->requestedAction->uniqueId;
-        $menu = Yii::$app->cache->get("menu");
+        $menu  = Yii::$app->cache->get("menu");
         if ("" == $menu || null == $menu || $isFind == true) {
-            $menu = [];
-            $menu[] = self::getMenuHead();
-//            $menuData = AuthItem::find()->where(['type' => 2, 'level' => 1])->orderBy('sort desc')->all();
-            $menuData = AuthItem::find()->all();
+            $menu     = [];
+            $menu[]   = self::getMenuHead();
+            $auth     = Yii::$app->authManager;
+            $menuData = $auth->getPermissions();
             foreach ($menuData as $key => $value) {
-                $activeUrl = [];
+                $child = $auth->getChildren($value->name);
+                if ($child) {
+                    foreach ($child as $ke => $val) {
+                        if (array_key_exists($ke, $menuData)) {
+                            unset($menuData[$ke]);
+                        }
+                    }
+                }
+            }
+
+            foreach ($menuData as $key => $value) {
+                $activeUrl   = [];
                 $activeUrl[] = $value->name;
-                $faarrow = '';
-                if (!empty($value->children)) {
+                $faarrow     = '';
+
+                $child = $auth->getChildren($value->name);
+
+                if (!empty($child)) {
                     $faarrow = '<span class="fa arrow"></span>';
                 };
-                $TempMenu = ['label' => '<i class="fa fa-cog"></i>' . $value['description'] . $faarrow, 'url' => Url::toRoute($value['name'])];
-                if (!empty($value->children)) {
+
+                $icon = "fa fa-bar-chart-o";
+
+                $TempMenu = ['label' => '<i class="' . $icon . '"></i><span class="nav-label">' . $value->description . '</span>' . $faarrow, 'level' => 1, 'url' => Url::toRoute($value->name)];
+
+                if (!empty($child)) {
                     $tempChild = [];
-                    foreach ($value->children as $ke => $val) {
-                        $tempChildStr = ['label' => $val['description'], 'url' => [$val['name']]];
-                        $activeUrl[] = $val->name;
-                        $activeUrlChild = [];
+                    foreach ($child as $ke => $val) {
+
+                        $cchild   = $auth->getChildren($val->name);
+                        $cfaarrow = "";
+                        if (!empty($cchild)) {
+                            $cfaarrow = '<span class="fa arrow"></span>';
+                        };
+
+                        $tempChildStr = ['label' => $val->description . $cfaarrow, 'level' => 2, 'url' => [$val->name]];
+                        $activeUrl[]  = $val->name;
+
+                        $activeUrlChild   = [];
                         $activeUrlChild[] = $val->name;
-                        if (!empty($val->children)) {
-                            foreach ($val->children as $k => $v) {
-                                $activeUrl[] = $v->name;
+
+                        //第三层菜单  此函数到时候改写成一个递归
+                        if (!empty($cchild)) {
+                            $tempCChild = [];
+                            foreach ($cchild as $k => $v) {
+                                $activeUrl[]      = $v->name;
                                 $activeUrlChild[] = $v->name;
+                                $tempCchildStr    = ['label' => $v->description . '</span>', 'level' => 3, 'url' => [$v->name], 'active' => in_array($route, $activeUrlChild)];
+                                $tempCChild[]     = $tempCchildStr;
                             }
+                            $tempChildStr['items'] = $tempCChild;
                         }
+
                         $tempChildStr['active'] = in_array($route, $activeUrlChild);
-                        $tempChild[] = $tempChildStr;
+                        $tempChild[]            = $tempChildStr;
                     }
                     $TempMenu['items'] = $tempChild;
                 }
                 $TempMenu['active'] = in_array($route, $activeUrl);
-                $menu[] = $TempMenu;
+                $menu[]             = $TempMenu;
             }
             Yii::$app->cache->delete('menu');
             Yii::$app->cache->set('menu', $menu);
         }
+
         return $menu;
     }
+
 
 
     public static function getMenuHead()
     {
         $items = [
             'options' => ['class' => 'nav-header'],
-            'label' => '
+            'label'   => '
                                                                 <div class="dropdown profile-element"> 
                                                                                         <span> <img alt="image" class="img-circle" src="/inspinia/img/profile_small.jpg"/> </span>
                                                                                         <a data-toggle="dropdown" class="dropdown-toggle" href="full_height.html#">
@@ -95,8 +131,10 @@ class Hcomm extends Component
                                                                 </div>
                                                                 <div class="logo-element"> IN+</div>'
         ];
+
         return $items;
     }
+
 
 
 }

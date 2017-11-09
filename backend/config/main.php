@@ -7,37 +7,50 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-backend',
-    'basePath' => dirname(__DIR__),
+    'id'                  => 'app-backend',
+    'basePath'            => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
-    'bootstrap' => ['log'],
-    'modules' => [
+    'bootstrap'           => ['log'],
+    'language'            => 'zh-CN',
+//    'i18n'                => [
+//        'translations' => [
+//            'app*' => [
+//                'class'   => 'yii\i18n\PhpMessageSource',
+//                //'basePath' => '@app/messages',
+//                //'sourceLanguage' => 'en-US',
+//                'fileMap' => [
+//                    'app'       => 'app.php',
+//                    'app/error' => 'error.php',
+//                ],
+//            ],
+//        ],
+//    ],
+    'modules'             => [
         'admin' => [
             'class' => 'mdm\admin\Module',
         ],
     ],
-    'aliases' => [
+    'aliases'             => [
         '@mdm/admin' => '@vendor/mdmsoft/yii2-admin',
     ],
-    'components' => [
-        'request' => [
-            'csrfParam' => '_csrf-backend',
+    'components'          => [
+        'request'      => [
+            'csrfParam'            => '_csrf-backend',
             'enableCsrfValidation' => false
         ],
-        'user' => [
-            'identityClass' => 'common\models\User',
+        'user'         => [
+            'identityClass'   => 'common\models\Admin',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+            'identityCookie'  => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
-        'session' => [
-            // this is the name of the session cookie used for login on the backend
+        'session'      => [
             'name' => 'advanced-backend',
         ],
-        'log' => [
+        'log'          => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
+            'targets'    => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class'  => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
             ],
@@ -45,15 +58,15 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
+        'urlManager'   => [
+            'enablePrettyUrl'     => true,
+            'showScriptName'      => false,
             'enableStrictParsing' => false,
-            'suffix' => '.html',
-            'rules' => [
+            'suffix'              => '.html',
+            'rules'               => [
             ],
         ],
 
     ],
-    'params' => $params,
+    'params'              => $params,
 ];

@@ -7,28 +7,28 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-frontend',
-    'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'id'                  => 'app-frontend',
+    'basePath'            => dirname(__DIR__),
+    'bootstrap'           => ['log'],
     'controllerNamespace' => 'frontend\controllers',
-    'components' => [
-        'request' => [
+    'components'          => [
+        'request'      => [
             'csrfParam' => '_csrf-frontend',
         ],
-        'user' => [
-            'identityClass' => 'common\models\User',
+        'user'         => [
+            'identityClass'   => 'common\models\User',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+            'identityCookie'  => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],
-        'session' => [
+        'session'      => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',
         ],
-        'log' => [
+        'log'          => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
+            'targets'    => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class'  => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
             ],
@@ -38,13 +38,47 @@ return [
         ],
 
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'enablePrettyUrl'     => true,
+            'showScriptName'      => false,
             'enableStrictParsing' => false,
-            'suffix' => '.html',
-            'rules' => [
+            'suffix'              => '.html',
+            'rules'               => [
             ],
         ],
+        'view'       => [
+            'class'            => 'yii\web\View',
+            'defaultExtension' => 'tpl',
+            'renderers'        => [
+                'tpl'  => [
+                    'class'       => 'yii\smarty\ViewRenderer',
+                    'cachePath'   => '@runtime/Smarty/cache',
+                    'compilePath' => '@runtime/Smarty/compile'
+                ],
+                'twig' => [
+                    'class'     => 'yii\twig\ViewRenderer',
+                    'cachePath' => '@runtime/Twig/cache',
+                    // Array of twig options:
+                    'options'   => [
+                        'auto_reload' => true,
+                    ],
+                    'globals'   => [
+                        'html' => ['class' => '\yii\helpers\Html'],
+                    ],
+                    'uses'      => ['yii\bootstrap'],
+                ],
+            ],
+            'theme'            => [
+                'class'    => 'yii\base\Theme',
+                'pathMap'  => [
+                    '@app/views' => [
+                        '@app/themes/basic',
+                        '@app/themes/spring',
+                    ]
+                ],
+                'basePath' => '@web/themes/basic',
+                'baseUrl'  => '@web/themes/basic',
+            ]
+        ],
     ],
-    'params' => $params,
+    'params'              => $params,
 ];

@@ -5,6 +5,7 @@
 /* @var $content string */
 
 use backend\assets\AppAsset;
+use backend\component\EMenu;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -26,6 +27,25 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+
+    <style>
+
+        .navbar-static-side, .body-small .navbar-static-side {
+            position: fixed;
+            width: 220px;
+            z-index: 2001;
+            height: 100%;
+        }
+
+        .mini-navbar .nav .nav-second-level {
+            position: fixed;
+            left: 70px !important;
+            top: 60px;
+            min-height: 140px;
+        }
+
+    </style>
+
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -38,20 +58,19 @@ AppAsset::register($this);
 
             <?php
 
-            $menu = \common\component\Hcomm::getMenuCopy(true);
+            $menu = \common\component\HoComm::getMenuCopy(true);
+            echo EMenu::widget([
+                             'encodeLabels'    => false,
 
-              Menu::widget([
-                'encodeLabels'    => false,
-                'submenuTemplate' => "\n<ul class=\"nav nav-second-level collapse\">\n{items}\n</ul>\n",
-                'options'         => [
-                    'id'    => 'side-menu',
-                    'class' => 'nav metismenu',
-                ],
-                'items' => $menu,
-            ]);
+                             'options'         => [
+                                 'id'    => 'side-menu',
+                                 'class' => 'nav metismenu',
+                             ],
+                             'items'           => $menu,
+                         ]);
 
             ?>
-
+<!--
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element"> <span>
@@ -67,7 +86,7 @@ AppAsset::register($this);
                             <li><a href="contacts.html">Contacts</a></li>
                             <li><a href="mailbox.html">Mailbox</a></li>
                             <li class="divider"></li>
-                            <li><a href="login.html">Logout</a></li>
+                            <li><a href="/site/logout.html">Logout</a></li>
                         </ul>
                     </div>
                     <div class="logo-element">
@@ -76,21 +95,122 @@ AppAsset::register($this);
                 </li>
 
                 <li>
+                    <a href="/site/test.html"><i class="fa fa-diamond"></i> <span class="nav-label">测试页面</span></a>
+                </li>
+
+                <li>
                     <a href="index.html">
                         <i class="fa fa-th-large"></i>
-                        <span class="nav-label">Dashboards</span>
+                        <span class="nav-label">人才管理</span>
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="/site/index.html">Dashboard v.1 </a></li>
+                        <li><a href="/personnel/list.html">人才列表</a></li>
+                        <li><a href="/personnel/add.html">添加人才</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="index.html">
+                        <i class="fa fa-th-large"></i>
+                        <span class="nav-label">权限管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="/permission/list.html">权限</a></li>
+                        <li><a href="/role/list.html">角色</a></li>
+                        <li><a href="/administrator/list.html">管理</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="">
+                    <a href="#">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <span class="nav-label">公司管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="graph_flot.html">公司列表</a></li>
+                        <li><a href="graph_morris.html">Morris.js Charts</a></li>
+                        <li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
+                        <li><a href="graph_chartjs.html">Chart.js</a></li>
+                        <li><a href="graph_chartist.html">Chartist</a></li>
+                        <li><a href="c3.html">c3 charts</a></li>
+                        <li><a href="graph_peity.html">Peity Charts</a></li>
+                        <li><a href="graph_sparkline.html">Sparkline Charts</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="index.html">
+                        <i class="fa fa-th-large"></i>
+                        <span class="nav-label">项目管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="/site/index.html"> 项目列表 </a></li>
                         <li><a href="dashboard_2.html">Dashboard v.2</a></li>
                         <li><a href="dashboard_3.html">Dashboard v.3</a></li>
                         <li><a href="dashboard_4_1.html">Dashboard v.4</a></li>
                         <li><a href="dashboard_5.html">Dashboard v.5 </a></li>
                     </ul>
                 </li>
-                <li class="active">
-                    <a href="/site/test.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
+
+                <li>
+                    <a href="mailbox.html">
+                        <i class="fa fa-envelope"></i>
+                        <span class="nav-label">OA</span>
+                        <span class="label label-warning pull-right">16/24</span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="mailbox.html">Inbox</a></li>
+                        <li><a href="mail_detail.html">Email view</a></li>
+                        <li><a href="mail_compose.html">Compose email</a></li>
+                        <li><a href="email_template.html">Email templates</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="mailbox.html">
+                        <i class="fa fa-envelope"></i>
+                        <span class="nav-label">任务管理</span>
+                        <span class="label label-warning pull-right">16/24</span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="mailbox.html">Inbox</a></li>
+                        <li><a href="mail_detail.html">Email view</a></li>
+                        <li><a href="mail_compose.html">Compose email</a></li>
+                        <li><a href="email_template.html">Email templates</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="mailbox.html">
+                        <i class="fa fa-envelope"></i>
+                        <span class="nav-label">报表管理</span>
+                        <span class="label label-warning pull-right">16/24</span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="mailbox.html">Inbox</a></li>
+                        <li><a href="mail_detail.html">Email view</a></li>
+                        <li><a href="mail_compose.html">Compose email</a></li>
+                        <li><a href="email_template.html">Email templates</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="mailbox.html">
+                        <i class="fa fa-cogs"></i>
+                        <span class="nav-label">设置</span>
+                        <span class="label label-warning pull-right">16/24</span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="mailbox.html">Inbox</a></li>
+                        <li><a href="mail_detail.html">Email view</a></li>
+                        <li><a href="mail_compose.html">Compose email</a></li>
+                        <li><a href="email_template.html">Email templates</a></li>
+                    </ul>
                 </li>
 
 
@@ -314,7 +434,7 @@ AppAsset::register($this);
                     <a href="package.html"><i class="fa fa-database"></i> <span class="nav-label">Package</span></a>
                 </li>
             </ul>
-
+-->
         </div>
     </nav>
 
@@ -435,7 +555,7 @@ AppAsset::register($this);
 
 
                     <li>
-                        <a href="login.html">
+                        <a href="/site/logout.html">
                             <i class="fa fa-sign-out"></i> Log out
                         </a>
                     </li>
@@ -490,6 +610,7 @@ AppAsset::register($this);
 
 
 <script type="text/javascript">
+    var csrf_backend = '<?=Yii::$app->request->csrfToken;?>';
     <?php $this->beginBlock('init'); ?>
     $(document).ready(function () {
         setTimeout(function () {
@@ -503,9 +624,21 @@ AppAsset::register($this);
 
         }, 1300);
     });
+
+    $(document).ready(function (){
+
+        $('.sidebar-collapse').slimScroll({
+            height: '100%',
+            railOpacity: 0.9
+        });
+
+    });
+
+
     <?php $this->endBlock(); ?>
 </script>
 <?php $this->registerJs($this->blocks['init'], View::POS_END) ?>
+
 
 
 

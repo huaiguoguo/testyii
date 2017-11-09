@@ -3,15 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\web\Controller;
+use backend\component\EController;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
+use common\models\AdminLoginForm;
+use backend\models\SignupForm;
 
 /**
  * Site controller
  */
-class SiteController extends Controller
+class SiteController extends EController
 {
     /**
      * @inheritdoc
@@ -23,21 +24,22 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'test'],
-                        'allow' => true,
-                        'roles' => ['?']
+                        'actions' => ['login', 'error', 'test', 'signup'],
+                        'allow'   => true,
+                        'roles'   => ['?']
                     ],
                     [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['?'],
+                        'actions' => ['logout', 'index', 'test'],
+                        'allow'   => true,
+                        'roles'   => ['@'],
                     ],
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
+            'verbs'  => [
+                'class'   => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'logout' => ['get'],
+                    'signup' => ['get', 'post'],
                 ],
             ],
         ];
@@ -72,11 +74,12 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = "login";
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
-        $model = new LoginForm();
+        $model = new AdminLoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
@@ -103,13 +106,13 @@ class SiteController extends Controller
         $exception = Yii::$app->errorHandler->exception;
         if ($exception !== null) {
 
-            $message = $exception->getMessage();
+            $message    = $exception->getMessage();
             $statusCode = $exception->statusCode;
 
             $data = [
-                'message' => $message,
+                'message'    => $message,
                 'statusCode' => $statusCode,
-                'exception' => $exception
+                'exception'  => $exception
             ];
 
             return $this->render('error', $data);
@@ -122,4 +125,20 @@ class SiteController extends Controller
         return $this->render('test');
     }
 
+    public function actionSignup()
+    {
+        $this->layout = 'signup';
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
 }
