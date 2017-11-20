@@ -61,7 +61,8 @@ use yii\web\View;
                                                 name="PermissionForm[parent_permission]" id="parent_permission">
                                             <option value>----选择父级权限----</option>
                                             <?php foreach ($permission as $key => $value): ?>
-                                                <option value="<?= $value->name; ?>" <?php if ($parent->name == $value->name): ?> selected <?php endif; ?> ><?= $value->description; ?></option>
+                                                <option value="<?= $value->name; ?>"
+                                                    <?php if ($parent && $parent->name == $value->name): ?> selected <?php endif; ?> ><?= $value->description; ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -76,7 +77,7 @@ use yii\web\View;
                         </div>
 
                         <div class="form-group"><label class="col-sm-2 control-label">排序</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-2">
                                 <input type="number" name="PermissionForm[sort]" placeholder="排序" class="form-control">
                             </div>
                         </div>
@@ -111,7 +112,7 @@ use yii\web\View;
         $.ajax({
             'url': "<?=Url::toRoute(['permission/getchild'])?>",
             'method': 'POST',
-            'data': {'name': parent_name},
+            'data': {'parent_name': parent_name, 'current_name':'<?=$permission_info->name;?>'},
             'success': function (data) {
                 select_template(data);
             },
@@ -121,6 +122,7 @@ use yii\web\View;
 
         function select_template(data) {
             $.each(data.child, function (k, v) {
+                console.log(v.name);
                 var select_str = "";
                 var child_name = "<?= !empty($child)?$child->name:"";?>";
                 if(v.name == child_name){

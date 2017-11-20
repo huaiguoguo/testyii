@@ -34,7 +34,7 @@ class PermissionController extends EController
     public function actionList()
     {
         $data         = [];
-        $list         = AuthItem::find()->where(['type' => 2])->all();
+        $list         = $this->auth->getPermissions();
         $data['list'] = $list;
 
         return $this->render('list', $data);
@@ -79,64 +79,30 @@ class PermissionController extends EController
     }
 
 
-    public function actionTest()
-    {
-
-
-//        $item = new AuthItem();
-//        $item->name = "/personnel/list";
-//        $item->description = "哈哈";
-
-//        $permission = Yii::$app->authManager->createPermission("/personnel/hahaha");
-//        $permission->description = "哈哈哈";
-//        $isSuccess = $this->auth->update("/personnel/haha", $permission);
-
-        //找到旧name
-        //把旧关系给移除了
-        //
-        //找到新name
-        // 找到改过后的子类的父类
-
-        $child_name = "/personnel/hahaha";
-        $child = $this->auth->getPermission($child_name);
-        $parent = $this->auth->getParent($child_name);
-        $isSuccess = $this->auth->removeChild($parent, $child);
-
-        $new_parent = Yii::$app->request;
-
-        $this->auth->addChild($parent, $child);
-
-        dump($isSuccess);
-        exit;
-//        $isItem = $this->auth->updateItem("/personnel/haha", $item);
-//        dump($isItem);
-    }
-
-
     public function actionEdit()
     {
 
-        $data = [];
-        $name = trim(Yii::$app->request->get('name'));
-        $permission_info = $this->auth->getPermission($name);
+        $data                    = [];
+        $name                    = trim(Yii::$app->request->get('name'));
+        $permission_info         = $this->auth->getPermission($name);
         $data['permission_info'] = $permission_info;
 
 
         $permissionForm = new PermissionForm();
         if ($permissionForm->load(Yii::$app->request->post()) && $permissionForm->validate()) {
-            if ($permissionForm->updateItem()){
+            if ($permissionForm->updateItem()) {
                 return $this->redirect(['list']);
-            }else{
+            } else {
                 return $this->redirect(['list']);
             }
         }
 
-
         $data_select = [];
         $this->getSelectOption($name, $data_select);
 
-        $data['parent']     = !empty($data_select[0]) ? $data_select[0] : false;
-        $data['child']      = !empty($data_select[1]) ? $data_select[1] : false;
+        $data['parent'] = !empty($data_select[0]) ? $data_select[0] : false;
+        $data['child']  = !empty($data_select[1]) ? $data_select[1] : false;
+
         $data['permission'] = $this->getAllPermission();
 
         return $this->render('edit', $data);
@@ -159,8 +125,11 @@ class PermissionController extends EController
         if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
             $response         = Yii::$app->response;
             $response->format = Response::FORMAT_JSON;
-            $name             = Yii::$app->request->post('name');
-            $children         = $this->auth->getChildren($name);
+            $current_name     = Yii::$app->request->post('current_name');
+            $parent_name             = Yii::$app->request->post('parent_name');
+            $children         = $this->auth->getChildren($parent_name);
+
+            unset($children[$current_name]);
 
             $response->data = ['child' => $children];
             $response->send();

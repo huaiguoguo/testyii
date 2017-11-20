@@ -60,7 +60,7 @@ use yii\helpers\Url;
                         </div>
 
                         <div class="form-group"><label class="col-sm-2 control-label">排序</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-2">
                                 <input type="number" name="PermissionForm[sort]" placeholder="排序"  class="form-control">
                             </div>
                         </div>

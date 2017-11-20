@@ -33,7 +33,7 @@ class EDbManager extends DbManager
 
 
     public function updateItem($name, $item){
-        parent::updateItem($name, $item);
+        return parent::updateItem($name, $item);
     }
 
 

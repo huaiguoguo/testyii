@@ -8,9 +8,15 @@
 
 namespace backend\controllers;
 
-use common\models\Personnel;
+use common\models\Func;
+use common\models\Region;
 use yii;
+use common\models\City;
+use common\models\Industry;
+use common\models\Personnel;
 use backend\component\EController;
+use yii\web\Response;
+
 
 /**
  * @author: 火柴<290559038@qq.com>
@@ -41,9 +47,18 @@ class PersonnelController extends EController
     public function actionAdd()
     {
         $data = [];
-        if (Yii::$app->request->isAjax) {
-
+        $Personnel = new Personnel();
+        if ($Personnel->load(Yii::$app->request->post()) && $Personnel->save()) {
+            return $this->goBack();
         }
+        $data['personnel'] = $Personnel;
+        $data['error'] = $Personnel->getErrors();
+        $data['industry'] = Industry::find()->all();
+        $data['func'] = Func::find()->all();
+        $data['province'] = Region::find()->where(['region_type'=>1])->all();
+
+        $data['location_city'] = Region::find()->where(['parent_id'=>$Personnel->location_province])->all();
+        $data['expectation_city'] = Region::find()->where(['parent_id'=>$Personnel->expectation_province])->all();
 
         return $this->render('add', $data);
     }
@@ -60,9 +75,21 @@ class PersonnelController extends EController
     public function actionEdit()
     {
         $data = [];
-        if (Yii::$app->request->isAjax) {
+        $id = Yii::$app->request->get('id');
+        $Personnel = Personnel::findOne($id);
 
+        if ($Personnel->load(Yii::$app->request->post()) && $Personnel->save()) {
+            return $this->goBack();
         }
+
+        $data['personnel'] = $Personnel;
+        $data['error'] = $Personnel->getErrors();
+        $data['industry'] = Industry::find()->all();
+        $data['func'] = Func::find()->all();
+        $data['province'] = Region::find()->where(['region_type'=>1])->all();
+
+        $data['location_city'] = Region::find()->where(['parent_id'=>$Personnel->location_province])->all();
+        $data['expectation_city'] = Region::find()->where(['parent_id'=>$Personnel->expectation_province])->all();
 
         return $this->render('edit', $data);
     }
@@ -70,6 +97,25 @@ class PersonnelController extends EController
     public function actionDelete()
     {
         if (Yii::$app->request->isAjax) {
+
+        }
+    }
+
+
+
+    public function actionGetcity()
+    {
+        if (Yii::$app->request->isAjax && Yii::$app->request->isPost){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            $region_id = Yii::$app->request->post('region_id');
+
+            $city = Region::find()->where(['parent_id'=>$region_id])->all();
+
+            $data = ["result"=>$city, 'code'=>200, 'error'=>0, 'messgae'=>'success'];
+
+            Yii::$app->response->data = $data;
+            Yii::$app->response->send();
 
         }
     }

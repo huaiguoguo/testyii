@@ -16,6 +16,7 @@ use yii\web\View;
 use yii\widgets\Menu;
 
 AppAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -553,11 +554,8 @@ AppAsset::register($this);
                         </ul>
                     </li>
 
-
                     <li>
-                        <a href="/site/logout.html">
-                            <i class="fa fa-sign-out"></i> Log out
-                        </a>
+                        <a href="/site/logout.html"> <i class="fa fa-sign-out"></i> 退出 </a>
                     </li>
                     <li>
                         <a class="right-sidebar-toggle">
@@ -611,6 +609,7 @@ AppAsset::register($this);
 
 <script type="text/javascript">
     var csrf_backend = '<?=Yii::$app->request->csrfToken;?>';
+
     <?php $this->beginBlock('init'); ?>
     $(document).ready(function () {
         setTimeout(function () {
@@ -620,22 +619,18 @@ AppAsset::register($this);
                 showMethod: 'slideDown',
                 timeOut: 4000
             };
-            toastr.success('Responsive Admin Theme', 'Welcome to INSPINIA');
-
+            toastr.success('返回 Admin Theme', '欢迎 to INSPINIA');
         }, 1300);
     });
 
     $(document).ready(function (){
-
         $('.sidebar-collapse').slimScroll({
             height: '100%',
             railOpacity: 0.9
         });
-
     });
-
-
     <?php $this->endBlock(); ?>
+
 </script>
 <?php $this->registerJs($this->blocks['init'], View::POS_END) ?>
 

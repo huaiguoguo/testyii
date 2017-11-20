@@ -16,8 +16,10 @@ use Yii;
  * @property integer $status
  * @property integer $func_id
  * @property integer $gender
+ * @property integer $location_province
  * @property integer $location_ctiy
  * @property string $annual_salary
+ * @property integer $expectation_province
  * @property integer $expectation_city
  * @property integer $expectation_industry
  * @property integer $expectation_func
@@ -31,6 +33,10 @@ use Yii;
  * @property integer $type
  * @property integer $resume_id
  * @property string $photos
+ * @property string $website
+ * @property string $remarks
+ *
+ * @property Func $func
  */
 class Personnel extends \yii\db\ActiveRecord
 {
@@ -48,13 +54,14 @@ class Personnel extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'username', 'mobile', 'email', 'status', 'func_id', 'gender'], 'required'],
-            [['id', 'mobile', 'qq', 'status', 'func_id', 'gender', 'location_ctiy', 'expectation_city', 'expectation_industry', 'expectation_func', 'marry', 'work_life', 'birthday', 'type', 'resume_id'], 'integer'],
+            [['username', 'mobile', 'qq', 'email', 'status', 'func_id', 'gender', 'location_province', 'location_ctiy', 'annual_salary', 'expectation_city', 'expectation_industry', 'expectation_func', 'expectation_annual_salary', 'work_life'], 'required'],
+            [['mobile', 'qq', 'status', 'func_id', 'gender', 'location_province', 'location_ctiy', 'expectation_province', 'expectation_city', 'expectation_industry', 'expectation_func', 'marry', 'work_life', 'birthday', 'type', 'resume_id'], 'integer'],
             [['annual_salary', 'expectation_annual_salary'], 'number'],
             [['skill_evaluation', 'self_evaluation'], 'string'],
             [['nickname', 'username'], 'string', 'max' => 20],
             [['email'], 'string', 'max' => 40],
-            [['skill', 'photos'], 'string', 'max' => 255],
+            [['skill', 'photos', 'website', 'remarks'], 'string', 'max' => 255],
+            [['func_id'], 'exist', 'skipOnError' => true, 'targetClass' => Func::className(), 'targetAttribute' => ['func_id' => 'id']],
         ];
     }
 
@@ -73,8 +80,10 @@ class Personnel extends \yii\db\ActiveRecord
             'status' => Yii::t('app', '状态'),
             'func_id' => Yii::t('app', '现在职能'),
             'gender' => Yii::t('app', '姓别'),
+            'location_province' => Yii::t('app', '现在所以省份 id'),
             'location_ctiy' => Yii::t('app', '现在所在城市 id'),
             'annual_salary' => Yii::t('app', '现在年收入'),
+            'expectation_province' => Yii::t('app', 'Expectation Province'),
             'expectation_city' => Yii::t('app', '期望城市 id'),
             'expectation_industry' => Yii::t('app', '期望行业 id'),
             'expectation_func' => Yii::t('app', '期望职能 id'),
@@ -88,15 +97,25 @@ class Personnel extends \yii\db\ActiveRecord
             'type' => Yii::t('app', '人才类型'),
             'resume_id' => Yii::t('app', '附件简历id'),
             'photos' => Yii::t('app', '用户图像'),
+            'website' => Yii::t('app', '主页'),
+            'remarks' => Yii::t('app', '备注'),
         ];
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFunc()
+    {
+        return $this->hasOne(Func::className(), ['id' => 'func_id']);
+    }
+
+    /**
      * @inheritdoc
-     * @return PersonnelQuery the active query used by this AR class.
+     * @return RegionQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new PersonnelQuery(get_called_class());
+        return new RegionQuery(get_called_class());
     }
 }

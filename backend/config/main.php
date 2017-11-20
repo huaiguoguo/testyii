@@ -12,7 +12,7 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap'           => ['log'],
     'language'            => 'zh-CN',
-//    'i18n'                => [
+//    'I18n'                => [
 //        'translations' => [
 //            'app*' => [
 //                'class'   => 'yii\i18n\PhpMessageSource',
