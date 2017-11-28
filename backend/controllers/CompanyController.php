@@ -47,6 +47,14 @@ class CompanyController extends Controller
 
     }
 
+
+    public function actionDetail()
+    {
+        $data = [];
+        $data['error'] = [];
+        return $this->render('detail', $data);
+    }
+
     public function actionEdit()
     {
         $data = [];

@@ -272,7 +272,7 @@ use yii\web\View;
                                     <td class="center">X</td>
                                     <td class="">
                                         <div class="btn-group">
-                                            <button class="btn-white btn btn-xs"><a href="<?php Url::toRoute(['look'])?>">查看</a></button>
+                                            <button class="btn-white btn btn-xs"><a href="<?php echo Url::toRoute(['detail', 'id'=>$value->id])?>">查看</a></button>
                                             <button class="btn-white btn btn-xs"><a href="<?php echo Url::toRoute(['edit', 'id'=>$value->id])?>">编辑</a></button>
                                         </div>
                                     </td>
