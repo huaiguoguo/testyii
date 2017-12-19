@@ -22,6 +22,26 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags(); ?>
     <title> <?= Html::encode($this->title) ?> </title>
     <?php $this->head() ?>
+    <style>
+        body {
+            padding-top: 70px;
+            padding-bottom: 30px;
+        }
+
+        .theme-dropdown .dropdown-menu {
+            position: static;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .theme-showcase > p > .btn {
+            margin: 5px 0;
+        }
+
+        .theme-showcase .navbar .container {
+            width: auto;
+        }
+    </style>
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -35,7 +55,7 @@ AppAsset::register($this);
                       'brandLabel' => Yii::$app->name,
                       'brandUrl' => Yii::$app->homeUrl,
                       'options' => [
-                          'class' => 'navbar-inverse navbar-fixed-top',
+                          'class' => 'navbar navbar-inverse navbar-fixed-top',
                       ],
                   ]);
     $menuItems = [
@@ -47,6 +67,10 @@ AppAsset::register($this);
         $menuItems[] = ['label' => '注册', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => '登录', 'url' => ['/site/login']];
     } else {
+
+        $menuItems[] = ['label'=>'我的简历', 'url'=>['/home/index']];
+        $menuItems[] = ['label'=>'简历预览', 'url'=>['/home/preview']];
+
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
@@ -55,6 +79,7 @@ AppAsset::register($this);
             )
             . Html::endForm()
             . '</li>';
+
     }
     echo Nav::widget([
                          'options' => ['class' => 'navbar-nav navbar-right'],
@@ -64,7 +89,7 @@ AppAsset::register($this);
     ?>
 
 
-    <div class="container">
+    <div class="container theme-showcase" role="main">
         <?= Breadcrumbs::widget([
                                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                                 ]) ?>

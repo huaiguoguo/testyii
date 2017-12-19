@@ -19,10 +19,12 @@ class AppAsset extends AssetBundle
 
     public $css = [
         'css/site.css',
+//        'css/docs.min.css',
+//        'css/patch.css',
 //        'public/components/editor.md/css/editormd.css'
     ];
     public $jsOptions = [
-        'position' => View::POS_HEAD,
+        'position' => View::POS_END,
     ];
     public $js = [
 //        'js/jquery.min.js',

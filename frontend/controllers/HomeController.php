@@ -27,7 +27,7 @@ class HomeController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                //'only'=>[],
+                'only'  => ['index'],
                 'rules' => [
                     [
                         'actions' => ['index'],
@@ -46,7 +46,7 @@ class HomeController extends Controller
 
     public function actionIndex()
     {
-        $data  = [];
+        $data = [];
 
         $param = Yii::$app->request->post();
         if (Yii::$app->request->post()) {
@@ -136,6 +136,20 @@ class HomeController extends Controller
         }
 
         return $this->render('index', $data);
+    }
+
+
+    public function actionPreview()
+    {
+        $data                 = [];
+        $id                   = Yii::$app->user->getId();
+        $baseinfo             = Personnel::findOne($id);
+        $data['baseinfo']     = $baseinfo;
+        $data['edu_expr']     = EduExperience::find()->where(['personnel_id'=>$baseinfo->id])->one();
+        $data['company_expr'] = CompanyExperience::find()->where(['personnel_id'=>$baseinfo->id])->one();
+        $data['project_expr'] = ProjectExperience::find()->where(['personnel_id'=>$baseinfo->id])->one();
+
+        return $this->render('preview', $data);
     }
 
 

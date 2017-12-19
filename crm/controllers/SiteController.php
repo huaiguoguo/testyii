@@ -161,6 +161,7 @@ class SiteController extends Controller
         return $this->render('signup', [
             'model' => $model,
         ]);
+
     }
 
     /**
@@ -210,6 +211,11 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    public function actionPut()
+    {
+        
     }
 
     public function actionTest()

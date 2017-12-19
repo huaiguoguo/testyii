@@ -14,6 +14,11 @@ use yii\bootstrap\BootstrapAsset;
 class EBootstrapAsset extends BootstrapAsset
 {
     //下面是增加的代码
+    public $css = [
+        'css/bootstrap.css',
+        'css/bootstrap-theme.css',
+    ];
+
     public $js = [
         'js/bootstrap.js',
     ];
