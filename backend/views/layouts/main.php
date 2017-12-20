@@ -447,14 +447,14 @@ AppAsset::register($this);
                     </a>
                     <form role="search" class="navbar-form-custom" action="search_results.html">
                         <div class="form-group">
-                            <input type="text" placeholder="Search for something..." class="form-control"
+                            <input type="text" placeholder="搜索" class="form-control"
                                    name="top-search" id="top-search">
                         </div>
                     </form>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+                        <span class="m-r-sm text-muted welcome-message">欢迎使用金猎人.</span>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -619,7 +619,7 @@ AppAsset::register($this);
                 showMethod: 'slideDown',
                 timeOut: 4000
             };
-            toastr.success('返回 Admin Theme', '欢迎 to INSPINIA');
+            toastr.success('返回', '欢迎回来');
         }, 1300);
     });
 

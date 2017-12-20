@@ -117,7 +117,7 @@ class HoComm extends Component
                                                                                         <span> <img alt="image" class="img-circle" src="/inspinia/img/profile_small.jpg"/> </span>
                                                                                         <a data-toggle="dropdown" class="dropdown-toggle" href="full_height.html#">
                                                                                              <span class="clear"> 
-                                                                                               <span class="block m-t-xs"><strong class="font-bold">火柴</strong></span> 
+                                                                                               <span class="block m-t-xs"><strong class="font-bold">'.Yii::$app->user->identity->username.'</strong></span>
                                                                                                <span class="text-muted text-xs block">艺术总监 <b class="caret"></b></span> 
                                                                                              </span> 
                                                                                         </a>
