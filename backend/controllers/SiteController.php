@@ -107,7 +107,7 @@ class SiteController extends EController
         if ($exception !== null) {
 
             $message    = $exception->getMessage();
-            $statusCode = $exception->statusCode;
+            $statusCode = $exception->getCode();
 
             $data = [
                 'message'    => $message,
