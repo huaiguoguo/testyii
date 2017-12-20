@@ -4,7 +4,7 @@
 
 use yii\web\View;
 
-$this->title = 'My Yii Application';
+//$this->title = 'My Yii Application';
 ?>
 
 <div class="row  border-bottom white-bg dashboard-header">

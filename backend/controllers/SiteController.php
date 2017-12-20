@@ -64,6 +64,7 @@ class SiteController extends EController
      */
     public function actionIndex()
     {
+        $this->getView()->title = "欢迎使用金猎人";
         return $this->render('index');
     }
 
