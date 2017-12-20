@@ -14,7 +14,7 @@ $this->title = $name;
 
 
 <div class="middle-box text-center animated fadeInDown">
-    <h1><?= Html::encode($exception->statusCode) ?></h1>
+    <h1><?= Html::encode($exception->getCode()) ?></h1>
     <h3 class="font-bold"><?= nl2br(Html::encode($exception->getMessage())) ?></h3>
 
     <div class="error-desc">
