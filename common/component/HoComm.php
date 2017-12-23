@@ -122,11 +122,11 @@ class HoComm extends Component
                                                                                              </span> 
                                                                                         </a>
                                                                                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                                                                            <li><a href="profile.html">Profile</a></li>
-                                                                                            <li><a href="contacts.html">Contacts</a></li>
-                                                                                            <li><a href="mailbox.html">Mailbox</a></li>
+                                                                                            <li><a href="#">个人资料</a></li>
+                                                                                            <li><a href="#">联系人</a></li>
+                                                                                            <li><a href="#">邮箱</a></li>
                                                                                             <li class="divider"></li>
-                                                                                            <li><a href="login.html">Logout</a></li>
+                                                                                            <li><a href="'.Url::toRoute(['site/logout']).'">退出</a></li>
                                                                                         </ul>
                                                                 </div>
                                                                 <div class="logo-element"> IN+</div>'
