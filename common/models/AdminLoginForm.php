@@ -83,7 +83,7 @@ class AdminLoginForm extends Model
         return [
             'username' => '用户名',
             'password' => '密码',
-            'rememberMe' => '记住我',
+            'rememberMe' => '记住我'
         ];
     }
 
