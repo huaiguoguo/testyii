@@ -110,6 +110,12 @@ class HoComm extends Component
 
     public static function getMenuHead()
     {
+        $rand = rand(0, 5);
+        $crazy_work_arr = ['梦想', '热情','执着','坚持','奔放','激情'];
+        $crazy_work = $crazy_work_arr[$rand];
+        $place_arr = ['一个愤青', '一个工作狂人','一个有钱的美女','一个逗逼','一个富婆','一个大美女'];
+        $place = $place_arr[$rand];
+
         $items = [
             'options' => ['class' => 'nav-header'],
             'label'   => '
@@ -118,7 +124,7 @@ class HoComm extends Component
                                                                                         <a data-toggle="dropdown" class="dropdown-toggle" href="full_height.html#">
                                                                                              <span class="clear"> 
                                                                                                <span class="block m-t-xs"><strong class="font-bold">'.Yii::$app->user->identity->username.'</strong></span>
-                                                                                               <span class="text-muted text-xs block">艺术总监 <b class="caret"></b></span> 
+                                                                                               <span class="text-muted text-xs block">'.$place.' <b class="caret"></b></span> 
                                                                                              </span> 
                                                                                         </a>
                                                                                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -129,7 +135,7 @@ class HoComm extends Component
                                                                                             <li><a href="'.Url::toRoute(['site/logout']).'">退出</a></li>
                                                                                         </ul>
                                                                 </div>
-                                                                <div class="logo-element"> IN+</div>'
+                                                                <div class="logo-element"> '.$crazy_work.' </div>'
         ];
 
         return $items;
