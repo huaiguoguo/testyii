@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </form>
                 -->
                 <p class="m-t">
-                    <small>jinlieren &copy; 2018</small>
+                    <small>金猎人 &copy; 2018</small>
                 </p>
             </div>
         </div>
