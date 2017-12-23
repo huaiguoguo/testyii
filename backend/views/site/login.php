@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </form>
                 -->
                 <p class="m-t">
-                    <small>phpdx &copy; 2014</small>
+                    <small>jinlieren &copy; 2018</small>
                 </p>
             </div>
         </div>
@@ -84,10 +84,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <hr/>
     <div class="row">
         <div class="col-md-6">
-            Copyright Example Company
+            Copyright 火柴工作室
         </div>
         <div class="col-md-6 text-right">
-            <small>© 2014-2015</small>
+            <small>© 2014-2018</small>
         </div>
     </div>
 </div>
