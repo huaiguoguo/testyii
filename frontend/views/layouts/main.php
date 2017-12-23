@@ -43,7 +43,7 @@ AppAsset::register($this);
         }
     </style>
 </head>
-<body>
+<body data-spy="scroll" data-target="#myScrollspy">
 <?php $this->beginBody() ?>
 
 

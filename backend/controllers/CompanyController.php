@@ -14,6 +14,7 @@ use common\models\Region;
 use yii;
 use common\models\Company;
 use yii\web\Controller;
+use yii\web\Response;
 
 class CompanyController extends Controller
 {
@@ -42,7 +43,8 @@ class CompanyController extends Controller
         $data['company'] = $Company;
         $data['error'] = $Company->getErrors();
         $data['industry'] = Industry::find()->all();
-        $data['province'] = City::find()->where(['level'=>1])->all();
+        $data['province'] = Region::find()->where(['region_type'=>1])->all();
+        $data['city'] = [];
         return $this->render('add', $data);
 
     }
