@@ -21,7 +21,7 @@ use yii\web\View;
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>编辑人才
+                        <h5>新增人才
                             <small></small>
                         </h5>
                         <div class="ibox-tools">

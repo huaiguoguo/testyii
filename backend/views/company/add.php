@@ -19,7 +19,7 @@ use yii\web\View;
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>编辑公司
+                        <h5>新增公司
                             <small></small>
                         </h5>
                         <div class="ibox-tools">
