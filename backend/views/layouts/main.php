@@ -59,7 +59,7 @@ AppAsset::register($this);
 
             <?php
 
-            $menu = \common\component\HoComm::getMenuCopy(true);
+            $menu = \common\component\HoComm::getMenuCopy();
             echo EMenu::widget([
                              'encodeLabels'    => false,
 

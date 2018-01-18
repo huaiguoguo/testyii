@@ -143,6 +143,7 @@ class HomeController extends Controller
     {
         $data                 = [];
         $id                   = Yii::$app->user->getId();
+
         $baseinfo             = Personnel::findOne($id);
         $data['baseinfo']     = $baseinfo;
         $data['edu_expr']     = EduExperience::find()->where(['personnel_id'=>$baseinfo->id])->one();
@@ -150,6 +151,7 @@ class HomeController extends Controller
         $data['project_expr'] = ProjectExperience::find()->where(['personnel_id'=>$baseinfo->id])->one();
 
         return $this->render('preview', $data);
+//        return $this->renderPartial('p_test', $data);
     }
 
 

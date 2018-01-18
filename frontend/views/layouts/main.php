@@ -23,24 +23,25 @@ AppAsset::register($this);
     <title> <?= Html::encode($this->title) ?> </title>
     <?php $this->head() ?>
     <style>
-        body {
-            padding-top: 70px;
-            padding-bottom: 30px;
-        }
+        /*body {*/
+            /*margin-top:50px;*/
+            /*padding-top: 70px;*/
+            /*padding-bottom: 30px;*/
+        /*}*/
 
-        .theme-dropdown .dropdown-menu {
-            position: static;
-            display: block;
-            margin-bottom: 20px;
-        }
+        /*.theme-dropdown .dropdown-menu {*/
+            /*position: static;*/
+            /*display: block;*/
+            /*margin-bottom: 20px;*/
+        /*}*/
 
-        .theme-showcase > p > .btn {
-            margin: 5px 0;
-        }
+        /*.theme-showcase > p > .btn {*/
+            /*margin: 5px 0;*/
+        /*}*/
 
-        .theme-showcase .navbar .container {
-            width: auto;
-        }
+        /*.theme-showcase .navbar .container {*/
+            /*width: auto;*/
+        /*}*/
     </style>
 </head>
 <body data-spy="scroll" data-target="#myScrollspy">
@@ -51,46 +52,47 @@ AppAsset::register($this);
 <div class="wrap">
 
     <?php
-    NavBar::begin([
-                      'brandLabel' => Yii::$app->name,
-                      'brandUrl' => Yii::$app->homeUrl,
-                      'options' => [
-                          'class' => 'navbar navbar-inverse navbar-fixed-top',
-                      ],
-                  ]);
-    $menuItems = [
-        ['label' => '首页', 'url' => ['/site/index']],
-        ['label' => '关于', 'url' => ['/site/about']],
-        ['label' => '联系', 'url' => ['/site/contact']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => '注册', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => '登录', 'url' => ['/site/login']];
-    } else {
+        NavBar::begin([
+                          'brandLabel' => Yii::$app->name,
+                          'brandUrl' => Yii::$app->homeUrl,
+                          'options' => [
+                              'class' => 'navbar navbar-inverse navbar-static-top',
+                              'style'=>[]
+                          ],
+                      ]);
+        $menuItems = [
+            ['label' => '首页', 'url' => ['/site/index']],
+            ['label' => '关于', 'url' => ['/site/about']],
+            ['label' => '联系', 'url' => ['/site/contact']],
+        ];
 
-        $menuItems[] = ['label'=>'我的简历', 'url'=>['/home/index']];
-        $menuItems[] = ['label'=>'简历预览', 'url'=>['/home/preview']];
+        if (Yii::$app->user->isGuest) {
+            $menuItems[] = ['label' => '注册', 'url' => ['/site/signup']];
+            $menuItems[] = ['label' => '登录', 'url' => ['/site/login']];
+        } else {
+            $menuItems[] = ['label'=>'我的简历', 'url'=>['/home/index']];
+            $menuItems[] = ['label'=>'简历预览', 'url'=>['/home/preview']];
 
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                '退出 (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-
-    }
-    echo Nav::widget([
-                         'options' => ['class' => 'navbar-nav navbar-right'],
-                         'items' => $menuItems,
-                     ]);
-    NavBar::end();
+            $menuItems[] = '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    '退出 (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>';
+        }
+        echo Nav::widget([ 'options' => ['class' => 'navbar-nav navbar-right'], 'items' => $menuItems]);
+        NavBar::end();
     ?>
 
 
     <div class="container theme-showcase" role="main">
         <?= Breadcrumbs::widget([
+                                    'homeLink'=>[
+                                            'label'=>'首页',
+                                            'url'=>\yii\helpers\Url::to(['site/index'])
+                                    ],
                                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                                 ]) ?>
         <?= Alert::widget() ?>
@@ -106,8 +108,6 @@ AppAsset::register($this);
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
-
-
 
 <?php $this->endBody() ?>
 </body>

@@ -20,6 +20,7 @@ class EBootstrapAsset extends BootstrapAsset
     ];
 
     public $js = [
+        '/js/jquery.min-2.1.1.js',
         'js/bootstrap.js',
     ];
 
